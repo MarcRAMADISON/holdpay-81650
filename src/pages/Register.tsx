@@ -8,6 +8,7 @@ import { Navigation } from "@/components/layout/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield, Mail, Lock, User, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Register() {
   const { toast } = useToast();
@@ -53,14 +54,40 @@ export default function Register() {
 
     try {
       // Simulation d'inscription - à remplacer par l'auth Supabase
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      //await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Call signIn supabase function
+      const { data, error } = await supabase.auth.signUp({
+        email:formData.email,
+        password:formData.password,
+        options: {
+          data: {
+            firstName: formData.firstName,
+            lastName: formData.lastName
+          }
+        }
+      });
+    
+      // show error message when the subscription failed, 
+      // then show success message and redirect to navigation page when subscription done
+      
+      if (error){
+        toast({
+          title: "Erreur d'inscription",
+          description: "Une erreur est survenue lors de la création du compte",
+          variant: "destructive"
+        });
+      }
+      else {
+        navigate("/dashboard");
       
       toast({
         title: "Compte créé avec succès !",
         description: "Bienvenue sur Holdpay, vous pouvez maintenant créer vos liens de paiement"
       });
+    }
       
-      navigate("/dashboard");
+      
     } catch (error) {
       toast({
         title: "Erreur d'inscription",
