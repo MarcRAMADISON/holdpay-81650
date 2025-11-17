@@ -24,6 +24,7 @@ import {
   Package
 } from "lucide-react";
 import { PaymentLink } from "@/components/ui/payment-link-card";
+import { isAuthenticated } from "@/lib/utils";
 
 // Mock data - à remplacer par de vraies données plus tard
 const mockPaymentLinks: PaymentLink[] = [
@@ -125,7 +126,7 @@ export default function PaymentLinkDetails() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10">
-      <Navigation isAuthenticated={true} />
+      <Navigation isAuthenticated={isAuthenticated()} />
       
       <div className="container mx-auto px-6 py-24 max-w-4xl">
         {/* Header avec bouton retour */}

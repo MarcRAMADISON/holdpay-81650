@@ -22,6 +22,7 @@ import {
   Package,
   Loader2
 } from "lucide-react";
+import { isAuthenticated } from "@/lib/utils";
 
 type PaymentStatus = 'pending' | 'paid' | 'delivered' | 'released' | 'expired';
 
@@ -164,7 +165,7 @@ export default function PaymentLinkDetailsPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10">
-        <Navigation isAuthenticated={true} />
+        <Navigation isAuthenticated={isAuthenticated()} />
         <div className="container mx-auto px-6 py-24 max-w-4xl">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="flex items-center gap-3">
