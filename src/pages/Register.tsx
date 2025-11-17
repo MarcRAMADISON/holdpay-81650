@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield, Mail, Lock, User, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { isAuthenticated, setCurrentUser } from "@/lib/utils";
 
 export default function Register() {
   const { toast } = useToast();
@@ -79,6 +80,7 @@ export default function Register() {
         });
       }
       else {
+        setCurrentUser(data)
         navigate("/dashboard");
       
       toast({
@@ -101,7 +103,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-accent/20">
-      <Navigation isAuthenticated={false} />
+      <Navigation isAuthenticated={isAuthenticated()} />
       
       <div className="container mx-auto px-4 py-16 max-w-md">
         <Card>
