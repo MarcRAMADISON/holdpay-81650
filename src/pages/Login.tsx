@@ -7,6 +7,7 @@ import { Navigation } from "@/components/layout/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield, Mail, Lock, ArrowRight } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function Login() {
   const { toast } = useToast();
@@ -27,14 +28,44 @@ export default function Login() {
 
     try {
       // Simulation de connexion - à remplacer par l'auth Supabase
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      toast({
-        title: "Connexion réussie !",
-        description: "Bienvenue sur votre dashboard Holdpay"
+      //await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Call SignIn function 
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email:formData.email,
+        password:formData.password,
       });
+    
+      // show error message when the signIn failed, 
+      // show e-mail confirmation error if e-mail was not yet confirmed
+      // then show success message and redirect to navigation page when signIn done
+      if (error){
+        console.log('error',)
+        if(error.code === "email_not_confirmed"){
+          toast({
+            title: "Erreur de connexion",
+            description: "Votre e-mail n'a pas encore été confirmé. On vous a envoyé un e-mail de confirmation; Merci de confimer votre adresse e-mail",
+            variant: "destructive"
+          });
+        }else{
+          toast({
+            title: "Erreur de connexion",
+            description: "Email ou mot de passe incorrect",
+            variant: "destructive"
+          });
+        }
+        
+      }
+      else {
+        toast({
+          title: "Connexion réussie !",
+          description: "Bienvenue sur votre dashboard Holdpay"
+        });
+        
+        navigate("/dashboard");
+      };
       
-      navigate("/dashboard");
+     
     } catch (error) {
       toast({
         title: "Erreur de connexion",

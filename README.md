@@ -76,4 +76,10 @@ Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-trick
 # New branch has been added: main / changes / hotfixes
 # Changes branch is for every development changes before merged in main branch
 # hotfixes is for fixing bugs on the prod environment
+# N.B: All current modification is done on changes branch
+
+# features list: 
+# subscription done ✅
+# signIn done ✅
+
 
