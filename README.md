@@ -71,3 +71,9 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+# the github link of this project is : https://github.dev/MarcRAMADISON/holdpay-81650
+# New branch has been added: main / changes / hotfixes
+# Changes branch is for every development changes before merged in main branch
+# hotfixes is for fixing bugs on the prod environment
+
